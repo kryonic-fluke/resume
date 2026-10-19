@@ -91,7 +91,7 @@
         \resumeItem{Engineered a \textbf{2-tier} caching gateway in \textbf{Go (Chi)} combining canonical \textbf{SHA-256} exact matching (\textbf{Redis}) with \textbf{768-dim HNSW} cosine search (\textbf{PostgreSQL pgvector}) to bypass redundant upstream LLM calls.}
         \resumeItem{Implemented an atomic distributed token-bucket rate limiter via \textbf{Redis Lua scripts} (\texttt{EVALSHA}) for single-round-trip token deduction, eliminating goroutine race conditions with deterministic \textbf{HTTP 429} enforcement.}
         \resumeItem{Designed a semantic prompt router classifying queries across \textbf{3 model tiers} (\emph{Fast/Balanced/Deep}) via in-memory cosine similarity, paired with automated retry and reroute failover on upstream \textbf{HTTP 429/5xx} errors.}
-        \resumeItem{Containerized a \textbf{4-service Docker Compose} stack with Prometheus metrics; ran \textbf{k6} tests at \textbf{100 concurrent VUs}, profiling \textbf{1 ms} local \textbf{pgvector} index scans against external embedding API latency.}
+        \resumeItem{Containerized a \textbf{4-service Docker Compose} stack with Prometheus metrics; ran local \textbf{k6} load tests across \textbf{100 concurrent VUs}, profiling \textbf{1.01 ms} local \textbf{pgvector} scans and isolating \textbf{99.8\%} of cache-miss latency to external embedding API round trips.}
       \resumeItemListEnd
 
     \resumeProjectHeading
