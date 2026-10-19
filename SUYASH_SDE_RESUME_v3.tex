@@ -1,0 +1,141 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage[
+  top=0.46in,
+  bottom=0.46in,
+  left=0.52in,
+  right=0.52in
+]{geometry}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+
+\pagestyle{empty}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+%----------LINK STYLING (Underlined Navy Blue)----------
+\definecolor{linkblue}{RGB}{20, 60, 160}
+\newcommand{\ulink}[2]{\href{#1}{\textcolor{linkblue}{\underline{#2}}}}
+
+%----------SECTION HEADERS (Regular Small Caps + Full Rule)----------
+\titleformat{\section}{
+  \scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{2.5pt}]
+
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+
+%----------CUSTOM MACROS----------
+\newcommand{\resumeItem}[1]{
+  \item{
+    {#1}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \item
+    \begin{tabular*}{\linewidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-2pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
+      #1 & #2 \\
+    \end{tabular*}\vspace{-2pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, itemsep=5.5pt, topsep=2pt]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.18in, label=$\vcenter{\hbox{\tiny$\bullet$}}$, itemsep=2.5pt, topsep=2.5pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2pt}}
+
+\begin{document}
+
+%----------HEADER----------
+\begin{center}
+    {\Huge \scshape Suyash Upadhyay} \\ \vspace{3.5pt}
+    \normalsize +91-8882212146 $|$ New Delhi, India $|$ 
+    \ulink{mailto:suyash.upadhyay01@gmail.com}{Email} $|$ 
+    \ulink{https://www.linkedin.com/in/suyash-upadhyay-49554b333/}{LinkedIn} $|$ 
+    \ulink{https://github.com/kryonic-fluke}{GitHub} $|$ 
+    \ulink{https://leetcode.com/u/pssv_aggrsv_coder/}{LeetCode}
+\end{center}
+\vspace{-4pt}
+
+%----------SUMMARY----------
+\section{Summary}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+    Software Engineer focused on backend systems, distributed caching, and agentic AI workflows. Experienced in building high-throughput API gateways and stateful RAG microservices using \textbf{Go}, \textbf{Python}, \textbf{PostgreSQL (pgvector)}, and \textbf{Redis}, with a strong focus on rate limiting, vector indexing, and Prometheus observability.
+    }}
+\end{itemize}
+
+%----------PROJECTS----------
+\section{Projects}
+\resumeSubHeadingListStart
+
+    \resumeProjectHeading
+      {\textbf{Aegis -- LLM Gateway \& Semantic Caching Proxy} $|$ \emph{Go (Chi), Redis, pgvector, Docker, k6}}
+      {\ulink{https://github.com/kryonic-fluke/Aegis}{GitHub}}
+      \resumeItemListStart
+        \resumeItem{Engineered a \textbf{2-tier} caching gateway in \textbf{Go (Chi)} combining canonical \textbf{SHA-256} exact matching (\textbf{Redis}) with \textbf{768-dim HNSW} cosine search (\textbf{PostgreSQL pgvector}) to bypass redundant upstream LLM calls.}
+        \resumeItem{Implemented an atomic distributed token-bucket rate limiter via \textbf{Redis Lua scripts} (\texttt{EVALSHA}) for single-round-trip token deduction, eliminating goroutine race conditions with deterministic \textbf{HTTP 429} enforcement.}
+        \resumeItem{Designed a semantic prompt router classifying queries across \textbf{3 model tiers} (\emph{Fast/Balanced/Deep}) via in-memory cosine similarity, paired with automated retry and reroute failover on upstream \textbf{HTTP 429/5xx} errors.}
+        \resumeItem{Containerized a \textbf{4-service Docker Compose} stack with Prometheus metrics; ran \textbf{k6} tests at \textbf{100 concurrent VUs}, profiling \textbf{1 ms} local \textbf{pgvector} index scans against external embedding API latency.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{CRAG -- Corrective RAG Service} $|$ \emph{Python, FastAPI, LangGraph, ChromaDB, BM25, Pydantic}}
+      {\ulink{https://github.com/kryonic-fluke/CRAG}{GitHub}}
+      \resumeItemListStart
+        \resumeItem{Built a stateful \textbf{Corrective RAG} pipeline in \textbf{LangGraph} orchestrating \textbf{4 graph nodes} (retrieval, relevance grading, query rewrite, and \textbf{Tavily} web fallback) with bounded self-correction loops to eliminate cyclic hallucinations.}
+        \resumeItem{Engineered a \textbf{Hybrid Retrieval} engine fusing dense vectors (\textbf{ChromaDB}) with sparse lexical search (\textbf{BM25Okapi}) via \textbf{Reciprocal Rank Fusion (RRF)}, improving recall on exact numerical clauses and domain terms.}
+        \resumeItem{Exposed the pipeline via an asynchronous \textbf{FastAPI} microservice delivering real-time \textbf{Server-Sent Events (SSE)} token streaming and strict \textbf{Pydantic v2} request/response contract validation.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Synapse -- Real-Time Collaborative Canvas} $|$ \emph{React, TypeScript, Node.js, MongoDB, Firestore}}
+      {\ulink{https://synapse-workspace.netlify.app/}{Live} $|$ \ulink{https://github.com/kryonic-fluke/Synapse}{GitHub}}
+      \resumeItemListStart
+        \resumeItem{Built a real-time collaborative canvas using \textbf{React (TypeScript)} and \textbf{Firestore} snapshot listeners, resolving concurrent graph edits via server-timestamp \textbf{last-write-wins (LWW)} and optimistic UI updates.}
+        \resumeItem{Architected a \textbf{2-database} persistence layer decoupling durable schemas in \textbf{MongoDB} from ephemeral canvas state in \textbf{Firestore}, isolating live collaborative traffic and minimizing document writes.}
+        \resumeItem{Implemented RBAC workspace sharing using tokenized invite links with post-auth approval gates; integrated \textbf{Gemini API} with structured JSON schemas to generate automated project risk summaries.}
+      \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%----------SKILLS----------
+\section{Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages:} Go, Python, TypeScript, JavaScript, Java, C++, SQL \\[2pt]
+     \textbf{Core Concepts:} Data Structures \& Algorithms, OOP, Operating Systems, Computer Networks, DBMS \\[2pt]
+     \textbf{Backend \& AI:} Go (Chi), FastAPI, Node.js, Express.js, LangGraph, LangChain, REST APIs, SSE Streaming \\[2pt]
+     \textbf{Frontend:} React.js, Tailwind CSS, Vite, Component Architecture \\[2pt]
+     \textbf{Databases \& Storage:} PostgreSQL (pgvector), Redis (Lua Scripting), MongoDB, ChromaDB, Firestore, Supabase \\[2pt]
+     \textbf{DevOps \& Observability:} Docker, Docker Compose, Prometheus, Grafana, k6, Git, GitHub Actions, Linux
+    }}
+\end{itemize}
+
+%----------EDUCATION----------
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {Guru Tegh Bahadur Institute of Technology (GGSIPU)}{2022 -- 2026}
+    {Bachelor of Technology in Information Technology}{CGPA: 7.9/10}
+  \resumeItemListStart
+    \resumeItem{\textbf{Coursework \& Problem Solving:} Data Structures \& Algorithms (\textbf{250+ problems} solved across \ulink{https://leetcode.com/u/pssv_aggrsv_coder/}{LeetCode} and \ulink{https://www.geeksforgeeks.org}{GeeksforGeeks} in Java and Go), Operating Systems, Computer Networks, DBMS.}
+  \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+\end{document}
